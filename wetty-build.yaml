@@ -21,12 +21,12 @@ objects:
   metadata:
     annotations:
       description: Defines how to build the application
-    name: vnc
+    name: wetty
   spec:
     output:
       to:
         kind: ImageStreamTag
-        name: vnc:latest
+        name: wetty:latest
     source:
       contextDir: ${CONTEXT_DIR}
       git:
