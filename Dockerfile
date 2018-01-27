@@ -12,8 +12,8 @@ RUN yum install -y --setopt=tsflags=nodocs --disablerepo='*' --enablerepo='rhel-
 		java-1.8.0-openjdk-devel && \
     yum clean all && \
     rm -rf /var/cache/yum/*
-RUN useradd wettyuser -u 1001
-RUN npm install wetty -g chdir=/home/wetty
+RUN useradd wettyuser -u 1001 && echo "wettyuser" | passwd wettyuser --stdin
+RUN npm install wetty -g chdir=/home/wettyuser
 RUN openssl req -new \
       		-x509 \
       		-nodes \
