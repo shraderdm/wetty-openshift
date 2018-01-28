@@ -1,4 +1,4 @@
-FROM openshift:nodejs
+FROM docker-registry.default.svc:5000/openshift/nodejs
 MAINTAINER kdevensen@gmail.com
 USER root
 RUN yum install -y --setopt=tsflags=nodocs --disablerepo='*' --enablerepo='rhel-7-server-rpms' --enablerepo='rhel-7-server-ose-3.7-rpms'\
