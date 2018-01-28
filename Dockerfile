@@ -14,22 +14,21 @@ RUN yum install -y --setopt=tsflags=nodocs --disablerepo='*' --enablerepo='rhel-
     rm -rf /var/cache/yum/*
 RUN useradd wetty -u 1001 && \ 
     echo "wetty" | passwd wetty --stdin && \
-    mkdir /opt/wetty && \
-    chown -R 1001:1001 /opt/wetty && \
-    mkdir /home/wetty/.pki
+    mkdir -p /opt/wetty/.pki && \
+    chown -R 1001:1001 /opt/wetty
 
 
-RUN npm install wetty -g chdir=/opt/wetty
+RUN npm install -g wetty chdir=/opt/wetty
 RUN openssl req -new \
       		-x509 \
       		-nodes \
       		-days 3650 \
       		-subj "/C=US/ST=NC/L=RALEIGH/O=RED HAT/OU=NAPS/CN=wetty.apps.kenscloud.io/emailAddress=kevensen@redhat.com" \
       		-newkey rsa:2048 \
-      		-keyout /home/wetty/.pki/privkey.pem \
-      		-out /home/wetty/.pki/cert.pem && \
-    chmod 0400 /home/wetty/.pki/*.pem && \
-    chown 1001:1001 /home/wetty/.pki/*.pem
+      		-keyout /opt/wetty/.pki/privkey.pem \
+      		-out /opt/wetty/.pki/cert.pem && \
+    chmod 0400 /opt/wetty/.pki/*.pem && \
+    chown 1001:1001 /opt/wetty/.pki/*.pem
 
 USER 1001
-ENTRYPOINT ['/usr/lib/node_modules/wetty/bin/wetty.js', '--sslkey /home/wetty/.pki/privkey.pem', '--sslcert /home/wetty/.pki/cert.pem', '-p 8888']
+ENTRYPOINT ['/usr/lib/node_modules/wetty/bin/wetty.js', '--sslkey /opt/wetty/.pki/privkey.pem', '--sslcert /opt/wetty/.pki/cert.pem', '-p 8888']
