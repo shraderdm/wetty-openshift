@@ -18,7 +18,7 @@ RUN useradd wetty -u 1001 && \
     chown -R 1001:1001 /opt/wetty
 
 
-RUN npm install -g wetty chdir=/opt/wetty
+RUN npm install wetty
 RUN openssl req -new \
       		-x509 \
       		-nodes \
