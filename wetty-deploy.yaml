@@ -1,0 +1,56 @@
+apiVersion: v1
+kind: Template
+labels:
+  template: wetty-deployer
+metadata:
+  annotations:
+    description: Web Based Terminal Interface
+    iconClass: icon-php
+    tags: tty,http
+  creationTimestamp: null
+  name: wetty-deployer
+objects:
+- apiVersion: v1
+  kind: Service
+  metadata:
+    name: wetty-service
+  spec:
+    ports:
+    - port: 8888
+      protocol: TCP
+      name: wetty
+    selector:
+      name: wetty
+- apiVersion: v1
+  kind: DeploymentConfig
+  metadata:
+    annotations:
+      description: Defines how to deploy the Wetty container
+    name: wetty
+  spec:
+    replicas: 1
+    selector:
+      name: wetty
+    strategy:
+      type: Rolling
+    template:
+      metadata:
+        labels:
+          name: wetty
+        name: wetty
+      spec:
+        containers:
+        - name: wetty
+          image: wetty
+          ports:
+          - containerPort: 8888
+    triggers:
+    - imageChangeParams:
+        automatic: true
+        containerNames:
+        - wetty
+        from:
+          kind: ImageStreamTag
+          name: wetty:latest
+      type: ImageChange
+    - type: ConfigChange
