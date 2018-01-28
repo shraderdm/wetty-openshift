@@ -9,6 +9,7 @@ RUN yum install -y --setopt=tsflags=nodocs --disablerepo='*' --enablerepo='rhel-
     		gcc-c++ \
 		git \
                 atomic-openshift-clients \
+		openssl \
 		java-1.8.0-openjdk-devel && \
     yum clean all && \
     rm -rf /var/cache/yum/*
