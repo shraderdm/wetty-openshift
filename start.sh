@@ -1,4 +1,4 @@
 #!/bin/bash
-/sbin/sshd -D -f /opt/sshd_config &
+/sbin/sshd -D &
 /usr/bin/wetty -p 8888
 
