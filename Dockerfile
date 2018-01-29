@@ -22,8 +22,7 @@ RUN cd /root && \
 
 ADD start.sh /opt/start.sh
 RUN chmod a+rx /opt/start.sh && \
-    cp /etc/ssh/sshd_config /opt/sshd_config && \
-    chmod a+rx /opt/sshd_config
+    chmod -R a+r /etc/ssh/*
 RUN npm install https://github.com/krishnasrinivas/wetty.git -g
 RUN useradd default -u 1001 -g 0
 
