@@ -19,8 +19,9 @@ RUN cd /root && \
     unzip /root/apache-maven-3.5.2-bin.zip && \
     mv apache-maven-3.5.2 /usr/bin/
 
-RUN usermod default -s /bin/bash
-EXPOSE 3000
+RUN useradd default -u 1001 -g 0 && \
+    usermod default -s /bin/bash
+EXPOSE 8080
 EXPOSE 22
 
 USER 1001
