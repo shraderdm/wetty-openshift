@@ -21,7 +21,9 @@ RUN cd /root && \
     mv apache-maven-3.5.2 /usr/bin/
 
 ADD start.sh /opt/start.sh
-RUN chmod a+rx /opt/start.sh
+RUN chmod a+rx /opt/start.sh && \
+    cp /etc/ssh/sshd_config /opt/sshd_config && \
+    chmod a+rx /opt/sshd_config
 RUN npm install https://github.com/krishnasrinivas/wetty.git -g
 RUN useradd default -u 1001 -g 0
 
