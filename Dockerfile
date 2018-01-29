@@ -26,4 +26,4 @@ EXPOSE 8080
 EXPOSE 22
 
 USER 1001
-ENTRYPOINT /bin/bash
+ENTRYPOINT ["/usr/bin/wetty", "-p", "8080"]
