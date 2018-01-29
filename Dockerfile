@@ -11,19 +11,21 @@ RUN yum install -y --setopt=tsflags=nodocs --disablerepo='*' --enablerepo='rhel-
                 atomic-openshift-clients \
 		openssl \
 		unzip \
-		java-1.8.0-openjdk-devel && \
+		java-1.8.0-openjdk-devel \
+                openssh-server && \
     yum clean all && \
     rm -rf /var/cache/yum/*
 ADD http://download.nextag.com/apache/maven/maven-3/3.5.2/binaries/apache-maven-3.5.2-bin.zip /root/
+ADD start.sh /opt/start.sh
+RUN chmod a+rx /opt/start.sh
 RUN cd /root && \
     unzip /root/apache-maven-3.5.2-bin.zip && \
     mv apache-maven-3.5.2 /usr/bin/
 
 RUN npm install https://github.com/krishnasrinivas/wetty.git -g
-RUN useradd default -u 1001 -g 0 && \
-    usermod default -s /bin/bash
+RUN for i in `seq 1000000000 1999999999`; do useradd $i -u $i -g 0; done
+
 EXPOSE 8080
-EXPOSE 22
 
 USER 1001
-ENTRYPOINT ["/usr/bin/wetty", "-p", "8080"]
+ENTRYPOINT ["/opt/start.sh"]

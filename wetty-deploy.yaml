@@ -41,7 +41,7 @@ objects:
       spec:
         containers:
         - name: wetty
-          image: wetty
+          image: ''
           ports:
           - containerPort: 8888
     triggers:
