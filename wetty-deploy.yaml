@@ -5,7 +5,7 @@ labels:
 metadata:
   annotations:
     description: Web Based Terminal Interface
-    iconClass: icon-php
+    iconClass: icon-nodejs
     tags: tty,http
   creationTimestamp: null
   name: wetty-deployer
